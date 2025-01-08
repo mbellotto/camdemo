@@ -86,6 +86,24 @@ export const usePhotoGallery = () => {
             webviewPath: photo.webPath
         };
     };
+
+    const uploadPhoto = async (photo: CameraPhoto, fileName: string): Promise<any> => {
+
+        try { 
+            const blob = await fetch(photo.path!).then(res => res.blob());
+            const formData = new FormData();
+            formData.append('image', blob, fileName);
+            const response = await fetch('http://139.144.31.100:3504/api/v1/checklist/upload', { 
+                method: 'POST', 
+                body: formData 
+            });
+            const data = await response.json();
+            console.log('Upload successful:', data);
+            return data.file;
+        } catch (error) { 
+            console.error('Error uploading image:', error); 
+        }
+    }
     
     async function base64FromPath(path: string): Promise<string> {
         const response = await fetch(path);
