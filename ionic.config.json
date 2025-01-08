@@ -1,0 +1,7 @@
+{
+  "name": "camdemo",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "react-vite"
+}
